@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Cuisine</title>
+</head>
+<body>
+  <h1>Add Cuisine</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+  </form>
+  <p><a href="{% url 'dishes_list' %}">Return to list</a></p>
+</body>
+</html>

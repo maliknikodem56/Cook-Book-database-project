@@ -15,20 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-
-
-from django.urls import path
-from . import views
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
-    path('', views.dishes_list, name='dishes_list'),
-    path('add_dish/', views.add_dish, name='add_dish'),
-    path('edit_dish/<int:dish_id>/', views.edit_dish, name='edit_dish'),
-    path('delete_dish/<int:dish_id>/', views.delete_dish, name='delete_dish'),
-    path('add_cuisine/', views.add_cuisine, name='add_cuisine'),
-    path('add_dish_type/', views.add_dish_type, name='add_dish_type'),
-    path('add_diet/', views.add_diet, name='add_diet'),
-    path('delete_cuisine/<int:cuisine_id>/', views.delete_cuisine, name='delete_cuisine'),
-    path('delete_dish_type/<int:type_id>/', views.delete_dish_type, name='delete_dish_type'),
-    path('delete_diet/<int:diet_id>/', views.delete_diet, name='delete_diet'),
+    path("admin/", admin.site.urls),
+    path("", include("Cookbook.urls")),
 ]
+

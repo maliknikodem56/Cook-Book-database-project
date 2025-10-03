@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Edytuj Danie   </title>
+
+
+</head>
+
+<body>
+     <h1>Edit dish </h1>
+
+      <form method="POST">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"> Save changes </button>
+
+      </form>
+       <p><a href="{% url 'dishes_list' %}" > Dishlist return </a></p>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

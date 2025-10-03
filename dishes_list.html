@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CookBook</title>
+</head>
+<body>
+  <h1>CookBook</h1>
+
+  <p>
+    <a href="{% url 'add_dish' %}">Add Dish</a> |
+    <a href="{% url 'add_cuisine' %}">Add Cuisine</a> |
+    <a href="{% url 'add_dish_type' %}">Add Dish Type</a> |
+    <a href="{% url 'add_diet' %}">Add Diet</a>
+  </p>
+
+  <form method="GET">
+    <label>Type:</label>
+    <select name="dish_type">
+      <option value="">All</option>
+      {% for type in dish_types %}
+        <option value="{{ type.id }}" {% if type.id|stringformat:"s" == selected_dish_type %}selected{% endif %}>{{ type.name }}</option>
+      {% endfor %}
+    </select>
+
+    <label>Cuisine:</label>
+    <select name="cuisine">
+      <option value="">All</option>
+      {% for cuisine in cuisines %}
+        <option value="{{ cuisine.id }}" {% if cuisine.id|stringformat:"s" == selected_cuisine %}selected{% endif %}>{{ cuisine.name }}</option>
+      {% endfor %}
+    </select>
+
+    <label>Diet:</label>
+    <select name="diet">
+      <option value="">All</option>
+      {% for diet in diets %}
+        <option value="{{ diet.id }}" {% if diet.id|stringformat:"s" == selected_diet %}selected{% endif %}>{{ diet.name }}</option>
+      {% endfor %}
+    </select>
+
+    <label>Search by name:</label>
+    <input type="text" name="search" value="{{ search_query }}">
+
+    <button type="submit">Filter</button>
+    <a href="{% url 'dishes_list' %}">Clear</a>
+
+    <button type="submit" name="random" value="1">Draw Random Dish</button>
+  </form>
+
+  {% if random_dish %}
+    <h2>Random Dish:</h2>
+    <p><strong>{{ random_dish.name }}</strong></p>
+    <p>Type: {{ random_dish.dish_type.name }}</p>
+    <p>Cuisine: {{ random_dish.cuisine.name }}</p>
+    <p>Diet: {{ random_dish.diet.name }}</p>
+    <p>Calories: {{ random_dish.kcal_per_100g }} kcal / 100g</p>
+    <p>Prep Time: {{ random_dish.preparation_time_minutes }} mins</p>
+    <p>Ingredients: {{ random_dish.ingredients }}</p>
+  {% endif %}
+
+  <ul>
+    {% for dish in dishes %}
+      <li>
+        <strong>{{ dish.name }}</strong><br>
+        Type: {{ dish.dish_type.name }}<br>
+        Cuisine: {{ dish.cuisine.name }}<br>
+        Diet: {{ dish.diet.name }}<br>
+        Calories: {{ dish.kcal_per_100g }} kcal / 100g<br>
+        Prep Time: {{ dish.preparation_time_minutes }} mins<br>
+        Ingredients: {{ dish.ingredients }}<br>
+        [<a href="{% url 'edit_dish' dish.id %}">Edit</a>]
+        [<a href="{% url 'delete_dish' dish.id %}">Delete</a>]
+      </li>
+    {% empty %}
+      <li>No dishes found.</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Cuisines</h2>
+  <ul>
+    {% for cuisine in cuisines %}
+      <li>{{ cuisine.name }} [<a href="{% url 'delete_cuisine' cuisine.id %}">Delete</a>]</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Dish Types</h2>
+  <ul>
+    {% for type in dish_types %}
+      <li>{{ type.name }} [<a href="{% url 'delete_dish_type' type.id %}">Delete</a>]</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Diets</h2>
+  <ul>
+    {% for diet in diets %}
+      <li>{{ diet.name }} [<a href="{% url 'delete_diet' diet.id %}">Delete</a>]</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
