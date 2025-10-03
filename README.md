@@ -1,0 +1,1 @@
+This project built in the Django framework using  object relational mapping containing a database with recipies. The goal of this application store culinary recipies, the application is  digital cook book that allows the user to filter, edit, delete and randomly choose their dish. It aids with management of meal planning.
